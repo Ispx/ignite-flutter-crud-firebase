@@ -8,4 +8,6 @@ class ToDoItem {
   final String id;
   final String title;
   final bool state;
+
+  Map<String, dynamic> toMap() => {'title': title, 'isDone': state};
 }
