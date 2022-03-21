@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
 import 'package:uuid/uuid.dart';
 
@@ -103,11 +104,21 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         body: Observer(
-          builder: (_) => ToDoItemListView(
-            itemList: _store.itemList,
-            onDeleteItem: _store.deleteItem,
-            toogleItemState: _store.toogleItemState,
-          ),
+          builder: (_) {
+            if (_store.status == StreamStatus.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Color(0xFF8257E5),
+                ),
+              );
+            }
+
+            return ToDoItemListView(
+              itemList: _store.itemList,
+              onDeleteItem: _store.deleteItem,
+              toogleItemState: _store.toogleItemState,
+            );
+          },
         ),
       ),
     );
