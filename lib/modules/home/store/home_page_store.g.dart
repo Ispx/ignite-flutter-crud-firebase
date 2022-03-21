@@ -9,6 +9,13 @@ part of 'home_page_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomePageStore on _HomePageStore, Store {
+  Computed<StreamStatus>? _$statusComputed;
+
+  @override
+  StreamStatus get status =>
+      (_$statusComputed ??= Computed<StreamStatus>(() => super.status,
+              name: '_HomePageStore.status'))
+          .value;
   Computed<List<ToDoItem>>? _$itemListComputed;
 
   @override
@@ -43,6 +50,7 @@ mixin _$HomePageStore on _HomePageStore, Store {
   String toString() {
     return '''
 toDoListStream: ${toDoListStream},
+status: ${status},
 itemList: ${itemList},
 undoneTaskListLength: ${undoneTaskListLength}
     ''';
